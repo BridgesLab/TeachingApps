@@ -6,6 +6,11 @@ change that? Students work through scenario cards on their own phones or
 laptops and report back **false positives per cancer found** and a
 **risk-equivalent age**.
 
+> **Not for diagnostic or clinical use.** This app is an illustrative
+> teaching example. It uses a deliberately simplified model with draft,
+> unverified numbers. It should not be used to estimate anyone's actual cancer
+> risk, interpret a real test result, or make screening or treatment decisions.
+
 > **All numbers are draft placeholders marked `VERIFY`.** They are
 > approximations from memory of the cited sources and must be checked against
 > SEER, the Cologuard / Cologuard Plus trials (Imperiale 2014, 2024), FIT and

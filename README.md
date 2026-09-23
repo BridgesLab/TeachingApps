@@ -24,6 +24,11 @@ absolute risk.
 - **Planned:** tabs for prior elicitation, risk in context, and genetic testing
   as a test.
 
+> **Not for diagnostic or clinical use.** The app is an illustrative
+> teaching example. It uses a deliberately simplified model with draft,
+> unverified numbers. It should not be used to estimate anyone's actual cancer
+> risk, interpret a real test result, or make screening or treatment decisions.
+
 All numbers live in `CRCScreening/data/parameters.csv`, and each is marked
 `VERIFY` until it has been checked against the primary sources. Built with
 bslib and Shiny modules; the core calculations are plain R functions with

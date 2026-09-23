@@ -16,6 +16,15 @@ ui <- page_navbar(
   fillable = FALSE,
   navbar_options = navbar_options(collapsible = TRUE),
   selected = "testing",
+  # shown above every tab, including on phones where the navbar collapses
+  header = div(
+    class = "alert alert-warning small mb-0 rounded-0 border-0 border-bottom text-center py-2",
+    role = "note",
+    strong("For teaching only. "),
+    "This is an illustrative model with simplified, unverified numbers. ",
+    "It is not a diagnostic tool and must not be used to make decisions about anyone's health. ",
+    "Talk to a clinician about real screening or symptoms."
+  ),
 
   nav_panel(
     "0 · Before you start", value = "prior",
@@ -44,7 +53,7 @@ ui <- page_navbar(
   ),
   nav_panel("4 · Sources", value = "sources", mod_sources_ui("sources", params)),
   nav_spacer(),
-  nav_item(tags$span(class = "navbar-text small", "Teaching model; not for clinical decisions"))
+  nav_item(tags$span(class = "navbar-text small", "Illustrative teaching model; not for diagnosis"))
 )
 
 server <- function(input, output, session) {
