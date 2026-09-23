@@ -1,0 +1,88 @@
+# Build every Shiny app in this repo with Shinylive (R runs in the browser via
+# webR) and publish them to GitHub Pages.
+#
+# An "app" is any top-level folder containing app.R. Each one is published at
+#   https://<user>.github.io/<repo>/<AppFolder>/
+# with a simple index page at the site root listing them all.
+#
+# One-time setup: repo Settings -> Pages -> Source: "GitHub Actions".
+
+name: Deploy Shiny apps to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::shinylive
+            any::shiny
+            any::bslib
+            any::dplyr
+            any::tidyr
+            any::purrr
+            any::tibble
+            any::ggplot2
+            any::scales
+            any::withr
+            any::htmltools
+            any::testthat
+
+      - name: Run tests
+        run: |
+          for app in */app.R; do
+            dir=$(dirname "$app")
+            if [ -d "$dir/tests/testthat" ]; then
+              echo "::group::Tests for $dir"
+              Rscript -e "testthat::test_dir('$dir/tests/testthat', stop_on_failure = TRUE)"
+              echo "::endgroup::"
+            fi
+          done
+
+      - name: Export apps with Shinylive
+        run: |
+          mkdir -p _site _stage
+          echo '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Teaching Apps</title><style>body{font-family:system-ui,sans-serif;max-width:40rem;margin:2rem auto;padding:0 1rem;color:#00274C}a{color:#2F65A7}</style></head><body><h1>Teaching Apps</h1><p>Illustrative teaching tools. Not for diagnostic or clinical use.</p><ul>' > _site/index.html
+          for app in */app.R; do
+            dir=$(dirname "$app")
+            # stage a copy without tests so students don't download them
+            rsync -a --exclude tests "$dir/" "_stage/$dir/"
+            Rscript -e "shinylive::export('_stage/$dir', '_site', subdir = '$dir')"
+            echo "<li><a href=\"$dir/\">$dir</a></li>" >> _site/index.html
+          done
+          echo '</ul></body></html>' >> _site/index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

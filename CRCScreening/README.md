@@ -27,8 +27,17 @@ shiny::runApp()
 testthat::test_dir("tests/testthat")
 ```
 
-Packages: shiny, bslib, dplyr, tidyr, purrr, ggplot2, readr, scales, withr,
-testthat. Files in `R/` are sourced automatically by Shiny.
+Packages: shiny, bslib, dplyr, tidyr, purrr, tibble, ggplot2, scales, withr,
+testthat. Files in `R/` are sourced automatically by Shiny. The app avoids
+heavier packages (e.g. readr) so it stays quick to load under Shinylive.
+
+The public version is built with Shinylive and deployed to GitHub Pages; see
+the root README. To build it locally:
+
+```r
+shinylive::export("CRCScreening", "_site", subdir = "CRCScreening")
+httpuv::runStaticServer("_site")  # then open /CRCScreening/
+```
 
 ## Status
 

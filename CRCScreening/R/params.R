@@ -11,21 +11,20 @@ PARAM_COLUMNS <- c(
 
 PARAM_DISTS <- c("fixed", "beta", "lognormal")
 
+#' Read a CSV with base R (keeps the app light for Shinylive/webR), with
+#' every column as character except the named numeric/logical ones
+read_csv_typed <- function(path, numeric = character(), logical = character()) {
+  df <- utils::read.csv(path, colClasses = "character", na.strings = c("", "NA"),
+                        check.names = FALSE, encoding = "UTF-8")
+  for (col in numeric) df[[col]] <- as.numeric(df[[col]])
+  for (col in logical) df[[col]] <- as.logical(df[[col]])
+  tibble::as_tibble(df)
+}
+
 #' Read and validate the parameter CSV
 load_params <- function(path = "data/parameters.csv") {
-  params <- readr::read_csv(
-    path,
-    col_types = readr::cols(
-      .default = readr::col_character(),
-      age_min = readr::col_double(),
-      age_max = readr::col_double(),
-      value   = readr::col_double(),
-      alpha   = readr::col_double(),
-      beta    = readr::col_double(),
-      lower   = readr::col_double(),
-      upper   = readr::col_double()
-    ),
-    na = c("", "NA")
+  params <- read_csv_typed(
+    path, numeric = c("age_min", "age_max", "value", "alpha", "beta", "lower", "upper")
   )
   validate_params(params)
   params
@@ -70,13 +69,7 @@ lognormal_sdlog <- function(lower, upper) (log(upper) - log(lower)) / (2 * stats
 
 #' Load scenario presets and check they reference valid inputs
 load_scenarios <- function(path = "data/scenarios.csv") {
-  sc <- readr::read_csv(
-    path,
-    col_types = readr::cols(.default = readr::col_character(),
-                            age = readr::col_double(), fdr_age = readr::col_double(),
-                            sequential = readr::col_logical()),
-    na = c("", "NA")
-  )
+  sc <- read_csv_typed(path, numeric = c("age", "fdr_age"), logical = "sequential")
   stopifnot(
     all(sc$group %in% GROUP_CHOICES),
     all(sc$test %in% TEST_CHOICES),

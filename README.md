@@ -37,3 +37,19 @@ testthat tests. See the [app README](CRCScreening/README.md) for details.
 ```r
 shiny::runApp("CRCScreening")
 ```
+
+## Live site
+
+Every push to `main` runs the tests, builds each app with
+[Shinylive](https://posit-dev.github.io/r-shinylive/) (R runs inside the
+browser, so no server is needed), and publishes it to GitHub Pages at
+`https://<github-username>.github.io/TeachingApps/`. Each app gets its own
+subfolder, e.g. `.../TeachingApps/CRCScreening/`. The first load takes about
+15–30 seconds while R downloads into the browser.
+
+The workflow is in `.github/workflows/deploy-shinylive.yml`. Any top-level
+folder with an `app.R` is published automatically. One-time setup:
+
+1. Push this repo to GitHub as a public repository.
+2. In the repo's **Settings → Pages**, set **Source** to **GitHub Actions**.
+3. Push to `main`, or run the workflow from the **Actions** tab.
