@@ -11,14 +11,18 @@ scenarios <- load_scenarios("data/scenarios.csv")
 
 ui <- page_navbar(
   title = "CRC risk & screening",
-  theme = bs_theme(version = 5, primary = "#0072B2", secondary = "#56B4E9",
-                   warning = "#E69F00", success = "#009E73"),
+  # University of Michigan brand colors (see UM_COLORS in R/plots.R)
+  theme = bs_theme(version = 5,
+                   primary = UM_COLORS[["blue"]], secondary = UM_COLORS[["arboretum_blue"]],
+                   success = UM_COLORS[["taubman_teal"]], info = UM_COLORS[["arboretum_blue"]],
+                   warning = UM_COLORS[["maize"]], danger = UM_COLORS[["tappan_red"]]),
   fillable = FALSE,
-  navbar_options = navbar_options(collapsible = TRUE),
+  navbar_options = navbar_options(collapsible = TRUE, bg = UM_COLORS[["blue"]], theme = "dark"),
   selected = "testing",
   # shown above every tab, including on phones where the navbar collapses
   header = div(
-    class = "alert alert-warning small mb-0 rounded-0 border-0 border-bottom text-center py-2",
+    class = "alert small mb-0 rounded-0 border-0 text-center py-2",
+    style = paste0("background-color:", UM_COLORS[["maize"]], "; color:", UM_COLORS[["blue"]], ";"),
     role = "note",
     strong("For teaching only. "),
     "This is an illustrative model with simplified, unverified numbers. ",

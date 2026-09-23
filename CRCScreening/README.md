@@ -58,7 +58,7 @@ CRCScreening/
 │   ├── model.R            scenario pipeline: settings → inputs (point or draws) → outcomes;
 │   │                      PPV-by-age curves
 │   ├── format.R           "1 in X", percentages, counts
-│   ├── plots.R            Okabe-Ito palette, icon array, probability ladder,
+│   ├── plots.R            U-M brand palette, icon array, probability ladder,
 │   │                      PPV curves, simulated PPV histogram
 │   ├── mod_testing.R      Tab 2 module
 │   ├── mod_sources.R      Tab 4 module (parameter table and assumptions)

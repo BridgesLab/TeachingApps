@@ -219,7 +219,7 @@ mod_testing_server <- function(id, params, scenarios) {
           value = fmt_count(r$fp_per_tp),
           p(paste0("per ", if (input$target == "crc") "cancer" else "lesion", " found by the test")),
           ivl("fp_per_tp", fmt_count),
-          theme = "warning"
+          theme = value_box_theme(bg = UM_COLORS[["maize"]], fg = UM_COLORS[["blue"]])
         ),
         value_box(
           title = paste0("Risk-equivalent age (vs. average-risk ", ref, ")"),
@@ -233,7 +233,7 @@ mod_testing_server <- function(id, params, scenarios) {
           title = "PPV after colonoscopy + biopsy",
           value = fmt_pct(r$ppv_seq),
           p("Positive on both tests"), ivl("ppv_seq", fmt_pct),
-          theme = "success"
+          theme = value_box_theme(bg = UM_COLORS[["taubman_teal"]], fg = UM_COLORS[["blue"]])
         )), after = 1)
       }
       do.call(layout_column_wrap, c(list(width = "210px", fill = FALSE, heights_equal = "row"), boxes))
@@ -293,7 +293,7 @@ mod_testing_server <- function(id, params, scenarios) {
     output$icon_caption <- renderText({
       r <- point()
       paste0("Each dot is one person. Large blue circles are people with ", disease_word(),
-             " the test caught; large red triangles are those it missed; orange squares are false positives; ",
+             " the test caught; large orange triangles are those it missed; yellow (maize) squares are false positives; ",
              "grey dots tested negative and are disease-free. Expected numbers are rounded to whole people ",
              "(expected people with the target condition: ", fmt_count(r$tp + r$fn), ").")
     })
@@ -382,7 +382,7 @@ mod_testing_server <- function(id, params, scenarios) {
 
     output$posterior_caption <- renderText({
       paste0("Each of ", scales::comma(N_DRAWS_HEADLINE), " simulations draws sensitivity, specificity and ",
-             "prevalence from Beta distributions (see Sources tab) and recomputes the PPV. Red line: point ",
+             "prevalence from Beta distributions (see Sources tab) and recomputes the PPV. Orange line: point ",
              "estimate; dashed lines: 95% range.")
     })
 

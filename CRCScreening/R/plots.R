@@ -1,25 +1,32 @@
 # Plots ----------------------------------------------------------------------
 #
-# Okabe-Ito colorblind-safe palette; outcomes also differ by shape and size so
-# the icon array still works in greyscale.
+# University of Michigan brand colors (brand.umich.edu/design-resources/colors).
+# Assignments were checked with simulated colour-vision deficiency
+# (colorspace::deutan/protan/tritan). Outcomes also differ by shape and size,
+# and the "your profile" curve is dashed, so nothing relies on colour alone.
+# Maize is used only for filled areas, never for lines or text on white,
+# because its contrast against white is low.
 
-OKABE_ITO <- c(
-  black = "#000000", orange = "#E69F00", sky = "#56B4E9", green = "#009E73",
-  yellow = "#F0E442", blue = "#0072B2", vermillion = "#D55E00", purple = "#CC79A7",
-  grey = "#999999"
+UM_COLORS <- c(
+  blue = "#00274C", maize = "#FFCB05",
+  tappan_red = "#9A3324", ross_orange = "#D86018", rackham_green = "#75988D",
+  wave_field_green = "#A5A508", taubman_teal = "#00B2A9", arboretum_blue = "#2F65A7",
+  a2_amethyst = "#702082", matthaei_violet = "#575294", peony_pink = "#E01F7C",
+  umma_tan = "#CFC096", angell_hall_ash = "#989C97", law_quad_stone = "#655A52",
+  puma_black = "#131516"
 )
 
 OUTCOME_COLORS <- c(
-  tp = OKABE_ITO[["blue"]], fn = OKABE_ITO[["vermillion"]],
-  fp = OKABE_ITO[["orange"]], tn = "#CFCFCF"
+  tp = UM_COLORS[["blue"]], fn = UM_COLORS[["ross_orange"]],
+  fp = UM_COLORS[["maize"]], tn = "#D9D9D9"
 )
 OUTCOME_SHAPES <- c(tp = 16, fn = 17, fp = 15, tn = 16)
 
 GROUP_COLORS <- c(
-  average = OKABE_ITO[["black"]], fdr = OKABE_ITO[["orange"]],
-  prs_top10 = OKABE_ITO[["sky"]], lynch_MLH1 = OKABE_ITO[["green"]],
-  lynch_MSH2 = OKABE_ITO[["blue"]], lynch_MSH6 = OKABE_ITO[["vermillion"]],
-  lynch_PMS2 = OKABE_ITO[["purple"]], custom = OKABE_ITO[["grey"]]
+  average = UM_COLORS[["blue"]], fdr = UM_COLORS[["ross_orange"]],
+  prs_top10 = UM_COLORS[["taubman_teal"]], lynch_MLH1 = UM_COLORS[["tappan_red"]],
+  lynch_MSH2 = UM_COLORS[["arboretum_blue"]], lynch_MSH6 = UM_COLORS[["a2_amethyst"]],
+  lynch_PMS2 = UM_COLORS[["peony_pink"]], custom = UM_COLORS[["law_quad_stone"]]
 )
 
 #' Percent labels that stay readable for very small probabilities
@@ -124,8 +131,8 @@ prob_ladder_data <- function(res, test_label, sequential) {
 
 #' One bar per panel with the label above it, so long labels wrap on phones
 plot_prob_ladder <- function(df, log_scale = TRUE, narrow = FALSE) {
-  fills <- c(pre = OKABE_ITO[["grey"]], neg = OKABE_ITO[["sky"]],
-             pos = OKABE_ITO[["orange"]], seq = OKABE_ITO[["blue"]])
+  fills <- c(pre = UM_COLORS[["angell_hall_ash"]], neg = UM_COLORS[["arboretum_blue"]],
+             pos = UM_COLORS[["ross_orange"]], seq = UM_COLORS[["blue"]])
   lo <- if (log_scale) 1e-6 else 0
   p <- ggplot2::ggplot(df) +
     ggplot2::geom_rect(ggplot2::aes(xmin = lo, xmax = pmax(prob, lo), ymin = 0, ymax = 1, fill = kind)) +
@@ -161,13 +168,17 @@ plot_ppv_curves <- function(curves, current, log_scale = TRUE, narrow = FALSE) {
                                   alpha = 0.12, colour = NA)
   }
   p <- p +
-    ggplot2::geom_line(ggplot2::aes(linewidth = highlight)) +
+    ggplot2::geom_line(ggplot2::aes(linewidth = highlight,
+                                    linetype = colour_key == "custom")) +
     ggplot2::geom_point(data = current, ggplot2::aes(age, ppv), inherit.aes = FALSE,
                         size = 4, shape = 21, fill = "white", stroke = 1.5) +
-    ggplot2::scale_linewidth_manual(values = c(`FALSE` = 0.6, `TRUE` = 1.6), guide = "none") +
+    ggplot2::scale_linewidth_manual(values = c(`FALSE` = 0.7, `TRUE` = 1.8), guide = "none") +
+    ggplot2::scale_linetype_manual(values = c(`FALSE` = "solid", `TRUE` = "22"), guide = "none") +
     ggplot2::scale_colour_manual(values = pal[present], breaks = present, labels = lab[present], name = NULL) +
     ggplot2::scale_fill_manual(values = pal[present], breaks = present, labels = lab[present], name = NULL) +
-    ggplot2::guides(colour = ggplot2::guide_legend(ncol = if (narrow) 1 else 2), fill = "none") +
+    ggplot2::guides(colour = ggplot2::guide_legend(
+      ncol = if (narrow) 1 else 2,
+      override.aes = list(linetype = ifelse(present == "custom", "22", "solid"))), fill = "none") +
     ggplot2::labs(x = "Age", y = "PPV (chance of cancer if positive)") +
     theme_app(if (narrow) 11 else 15)
   if (log_scale) {
@@ -180,9 +191,9 @@ plot_ppv_curves <- function(curves, current, log_scale = TRUE, narrow = FALSE) {
 plot_ppv_posterior <- function(draws, point) {
   s <- summarise_draws(draws$ppv)
   ggplot2::ggplot(draws, ggplot2::aes(ppv)) +
-    ggplot2::geom_histogram(bins = 40, fill = OKABE_ITO[["sky"]], colour = "white") +
+    ggplot2::geom_histogram(bins = 40, fill = UM_COLORS[["arboretum_blue"]], colour = "white") +
     ggplot2::geom_vline(xintercept = c(s$lower, s$upper), linetype = "dashed") +
-    ggplot2::geom_vline(xintercept = point, linewidth = 1.2, colour = OKABE_ITO[["vermillion"]]) +
+    ggplot2::geom_vline(xintercept = point, linewidth = 1.2, colour = UM_COLORS[["ross_orange"]]) +
     ggplot2::scale_x_continuous(labels = label_small_pct) +
     ggplot2::labs(x = "Positive predictive value", y = "Simulations") +
     theme_app()
