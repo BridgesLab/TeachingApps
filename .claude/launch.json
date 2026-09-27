@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "reverse-causation",
+      "runtimeExecutable": "Rscript",
+      "runtimeArgs": ["-e", "shiny::runApp('ReverseCausationSimulation', port = 4320, launch.browser = FALSE)"],
+      "port": 4320
+    }
+  ]
+}
