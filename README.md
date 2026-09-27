@@ -38,6 +38,20 @@ testthat tests. See the [app README](CRCScreening/README.md) for details.
 shiny::runApp("CRCScreening")
 ```
 
+### [ReverseCausationSimulation](ReverseCausationSimulation/): NNS and BMI
+
+A simulated cohort for the Non-Nutritive Sweeteners lecture (PUBHLTH430).
+Heavier people are more likely to choose NNS, so a naive cohort analysis makes
+NNS look harmful even when it has no effect. Students move sliders for the true
+effect, reverse-causation strength, BMI measurement error and cohort size. They
+then compare four estimates: naive, excluding people with obesity at baseline,
+adjusting for baseline BMI, and a simulated randomized trial. All data are simulated. See
+the [app README](ReverseCausationSimulation/README.md).
+
+```r
+shiny::runApp("ReverseCausationSimulation")
+```
+
 ## Live site
 
 Every push to `main` runs the tests, builds each app with
