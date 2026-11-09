@@ -1,10 +1,10 @@
-# Tab 2: Testing -------------------------------------------------------------
+# Analysis tab -----------------------------------------------------------------
 
 N_PEOPLE <- 10000
 N_DRAWS_HEADLINE <- 2000
 N_DRAWS_CURVES <- 400
 
-mod_testing_ui <- function(id, scenarios) {
+mod_analysis_ui <- function(id, scenarios) {
   ns <- NS(id)
   scenario_choices <- c("Choose a scenario card…" = "",
                         stats::setNames(scenarios$scenario_id, scenarios$label))
@@ -99,7 +99,7 @@ mod_testing_ui <- function(id, scenarios) {
   )
 }
 
-mod_testing_server <- function(id, params, scenarios) {
+mod_analysis_server <- function(id, params, scenarios) {
   moduleServer(id, function(input, output, session) {
 
     # Scenario cards ---------------------------------------------------------

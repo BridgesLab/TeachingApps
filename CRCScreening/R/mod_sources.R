@@ -1,4 +1,4 @@
-# Tab 4: Sources and assumptions ---------------------------------------------
+# Sources tab: parameters and assumptions -------------------------------------
 
 ASSUMPTIONS <- c(
   "Prevalence of undiagnosed, screen-detectable cancer = annual incidence x mean sojourn time. This ignores prior screening history.",

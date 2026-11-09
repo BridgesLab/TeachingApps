@@ -12,7 +12,7 @@ test means very different things at age 25 and at 55. They also see how family
 history, Lynch syndrome (by gene), polygenic risk and lifestyle factors shift
 absolute risk.
 
-- **Testing tab:**
+- **Analysis tab:**
   - an icon array of 10,000 people
   - PPV, NPV and false positives per cancer found
   - pre- to post-test probability bars, including follow-up colonoscopy
@@ -21,8 +21,6 @@ absolute risk.
   - optional Monte Carlo uncertainty
 - **Sources tab:** every parameter with its citation and a list of the model's
   simplifying assumptions.
-- **Planned:** tabs for prior elicitation, risk in context, and genetic testing
-  as a test.
 
 > **Not for diagnostic or clinical use.** The app is an illustrative
 > teaching example. It uses a deliberately simplified model with draft,

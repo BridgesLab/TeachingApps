@@ -39,15 +39,14 @@ shinylive::export("CRCScreening", "_site", subdir = "CRCScreening")
 httpuv::runStaticServer("_site")  # then open /CRCScreening/
 ```
 
-## Status
+## Tabs
 
-| Tab | Status |
-|---|---|
-| 0 · Before you start (prior elicitation) | placeholder |
-| 1 · Risk in context | placeholder (calculation functions for it are written and tested in `R/risk.R`) |
-| **2 · Testing** | **built** |
-| 3 · Genetic testing as a test | placeholder (Lynch carrier prevalences are in the parameter file) |
-| 4 · Sources and assumptions | built |
+- **Analysis:** pick a scenario card or set age, risk group, symptoms and
+  test, then see an icon array of 10,000 people, PPV/NPV, false positives per
+  cancer found, risk-equivalent age, pre- to post-test probability bars,
+  PPV-by-age curves and downstream colonoscopies and harms.
+- **Sources:** every parameter with its citation, plus the model's
+  simplifying assumptions.
 
 ## File structure
 
@@ -56,7 +55,7 @@ CRCScreening/
 ├── app.R                  page_navbar shell; loads parameters and scenarios, wires modules
 ├── data/
 │   ├── parameters.csv     every number in the app (one row per parameter)
-│   └── scenarios.csv      classroom scenario cards (presets for the Testing tab)
+│   └── scenarios.csv      classroom scenario cards (presets for the Analysis tab)
 ├── R/
 │   ├── params.R           load/validate the CSV, lookups, choice labels
 │   ├── diagnostic.R       PPV/NPV, likelihood ratios, Bayes in odds form,
@@ -69,9 +68,8 @@ CRCScreening/
 │   ├── format.R           "1 in X", percentages, counts
 │   ├── plots.R            U-M brand palette, icon array, probability ladder,
 │   │                      PPV curves, simulated PPV histogram
-│   ├── mod_testing.R      Tab 2 module
-│   ├── mod_sources.R      Tab 4 module (parameter table and assumptions)
-│   └── mod_placeholder.R  stub for unbuilt tabs
+│   ├── mod_analysis.R     Analysis tab module
+│   └── mod_sources.R      Sources tab module (parameter table and assumptions)
 └── tests/testthat/        diagnostic math, risk model, uncertainty, parameter file, pipeline
 ```
 
@@ -128,7 +126,7 @@ shape; everything downstream stays the same.
 
 ## Classroom use
 
-Scenario cards (in `data/scenarios.csv`, selectable in the Testing tab):
+Scenario cards (in `data/scenarios.csv`, selectable in the Analysis tab):
 
 - **A.** 25, no symptoms, orders Cologuard from an ad
 - **B.** 28, father diagnosed at 50, clinic offers Cologuard
@@ -151,17 +149,3 @@ These are listed in full in the Sources tab. The main ones:
 - symptom odds ratios are used as likelihood ratios
 - competing mortality is ignored
 - everyone with a positive test is assumed to get a colonoscopy
-
-## Roadmap
-
-1. Tab 0: prior elicitation (guess → reveal). Guesses stay in the session,
-   with an optional class histogram, which needs shared storage such as a
-   Google Sheet or a small database.
-2. Tab 1: cumulative risk curves, risk-equivalent age vs guideline start
-   ages, relative vs absolute risk at 25 vs 55, and an optional birth-cohort
-   panel. The functions already exist in `R/risk.R`.
-3. Tab 3: Lynch panel as a screening test. Per-gene carrier prevalence is
-   already in the parameter file; still to add are VUS rate and
-   analytic/clinical validity parameters, plus cascade testing (50% prior in
-   first-degree relatives).
-4. An optional brms module that replaces the Beta priors with posterior draws.
