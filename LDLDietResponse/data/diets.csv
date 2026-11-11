@@ -1,0 +1,7 @@
+diet_id,label,energy,protein,sfa,sfa_lm,sfa_p,sfa_s,mufa,pufa,trans,chol,fiber,sterol,description
+typical_us,Typical US diet,2500,16,12,1.5,6.5,3,12,8,1,300,5,0.3,"About 12% of energy from SFA and 300 mg/day cholesterol, as on the cards. Approximate NHANES/WWEIA pattern: 16% protein, 33% fat, 51% carbohydrate; soluble fiber about 5 g/day; plant sterols about 0.3 g/day."
+mediterranean,Mediterranean-style (not keto),2500,17,8,0.8,5,1.7,20,9,0.5,250,8,0.5,"Olive oil, nuts, legumes, fish, whole grains, vegetables. About 45% carbohydrate, 38% fat; SFA 8% of energy."
+keto_eggs_butter,"Keto: eggs, butter, bacon, cheese, steak",2500,15,29,3.5,15,7.5,35,9.5,1.5,900,2,0.15,"4 large eggs scrambled in butter, bacon, cheese, steak, cream in coffee. 10% carbohydrate, 15% protein, 75% fat; about 29% of energy from SFA and 900 mg/day cholesterol."
+keto_olive_fish,"Keto: olive oil, salmon, nuts, avocado",3200,15,22,2,12,6,40,12.5,0.5,450,5,0.5,"2 eggs, olive oil on everything, salmon, nuts, cheese, avocado. About 22% of energy from SFA; 450 mg/day cholesterol."
+keto_coconut,"Keto: bulletproof coffee (coconut oil + butter), ground beef",2400,15,38,14,12,6,29,6.5,1.5,400,2,0.15,"Coconut oil and butter in coffee twice a day, ground beef, cheese, 1 egg. About 38% of energy from SFA, mostly lauric and myristic acid."
+keto_vegan,"Vegan keto: olive oil, avocado, nuts, seeds, psyllium",2500,15,9,0.3,6,2,47,18.5,0.5,0,7,0.6,No animal foods. No dietary cholesterol; lots of soluble fiber and plant sterols.

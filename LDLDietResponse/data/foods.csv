@@ -1,0 +1,10 @@
+food_id,label,serving,sfa_g,sfa_lm_g,sfa_p_g,sfa_s_g,mufa_g,pufa_g,trans_g,chol_mg,fiber_g,sterol_g,source,verified
+egg,Eggs,1 large egg (50 g),1.6,0.02,1.1,0.4,1.8,1,0,186,0,0,USDA FoodData Central (approximate),n
+butter,Butter,1 Tbsp (14 g),7.3,1.6,3.4,1.4,3,0.4,0.5,31,0,0,USDA FoodData Central (approximate),n
+coconut_oil,Coconut oil,1 Tbsp (14 g),11.2,8,1.1,0.4,0.9,0.2,0,0,0,0.01,USDA FoodData Central (approximate),n
+olive_oil,Olive oil,1 Tbsp (14 g),1.9,0,1.5,0.3,9.9,1.4,0,0,0,0.03,USDA FoodData Central (approximate),n
+nut_butter,Nut butter,2 Tbsp (32 g),3.3,0,1.6,0.6,8.2,4,0,0,0.5,0.04,USDA FoodData Central: peanut butter (approximate),n
+cheese,Cheese,1 oz cheddar (28 g),5.3,1.2,2.4,0.9,2.6,0.3,0.3,28,0,0,USDA FoodData Central (approximate),n
+red_meat,Red meat,3 oz ground beef 80/20 cooked (85 g),5.9,0.4,3.4,1.8,6.6,0.4,0.8,76,0,0,USDA FoodData Central (approximate),n
+oats,Oatmeal,1 cup cooked (40 g dry),0.5,0,0.4,0,1,1,0,0,2,0.02,USDA FoodData Central; beta-glucan about 1.5-2 g per serving (approximate),n
+psyllium,Psyllium,1 Tbsp husk (about 5 g),0,0,0,0,0,0,0,0,3.5,0,Psyllium husk is about 70% soluble fiber (approximate),n

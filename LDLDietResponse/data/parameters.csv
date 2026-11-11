@@ -1,0 +1,59 @@
+param_id,category,value,lower,upper,unit,description,source,verified,notes
+beta_sfa_cho,average_math,1.3,1.1,1.5,mg/dL per 1% energy,LDL-C fall when 1% of energy from SFA is replaced by carbohydrate (so SFA in place of carbohydrate raises LDL-C by this much),Mensink RP. Effects of saturated fatty acids on serum lipids and lipoproteins. WHO 2016 (as on the 2026 cards and deck slide 17),n,Mixed SFA. 0.033 mmol/L x 38.67. The same coefficient is used in card math and the full model. 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_sfa_mufa,average_math,1.6,1.4,1.8,mg/dL per 1% energy,LDL-C fall when 1% of energy from SFA is replaced by cis-MUFA,Mensink 2016 (WHO),n,Implies MUFA in place of carbohydrate = 1.3 - 1.6 = -0.3 mg/dL per 1% energy (full model only) 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_sfa_pufa,average_math,2.1,1.9,2.3,mg/dL per 1% energy,LDL-C fall when 1% of energy from SFA is replaced by cis-PUFA,Mensink 2016 (WHO),n,Implies PUFA in place of carbohydrate = 1.3 - 2.1 = -0.8 mg/dL per 1% energy (full model only) 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_lm_cho,average_math,1.9,1.5,2.3,mg/dL per 1% energy,LDL-C rise when lauric (12:0) + myristic (14:0) acid replace carbohydrate,Mensink 2016 (WHO) individual fatty acids: lauric about 0.052 and myristic about 0.048 mmol/L per 1% energy,n,Used only when the SFA split is switched on. Check the individual-fatty-acid table before release. 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_palmitic_cho,average_math,1.5,1.2,1.9,mg/dL per 1% energy,LDL-C rise when palmitic acid (16:0) replaces carbohydrate,Mensink 2016 (WHO) individual fatty acids: about 0.039 mmol/L per 1% energy,n,Used only when the SFA split is switched on 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_stearic_cho,average_math,0.15,-0.2,0.5,mg/dL per 1% energy,LDL-C rise when stearic acid (18:0) replaces carbohydrate,Mensink 2016 (WHO) individual fatty acids: about 0.004 mmol/L per 1% energy (not significant),n,Used only when the SFA split is switched on. Other SFA (short and medium chain; 20:0+) use beta_sfa_cho. 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_trans_cho,average_math,1.5,1.1,1.9,mg/dL per 1% energy,LDL-C rise when trans fat replaces carbohydrate,Mensink RP et al. Am J Clin Nutr 2003;77:1146 (about 0.040 mmol/L per 1% energy),n,Full model only 95% interval is approximate (check against the source); used for coefficient uncertainty.
+beta_chol,average_math,2,1.4,2.6,mg/dL per 100 mg/day,LDL-C rise per extra 100 mg/day dietary cholesterol,As on the 2026 Lipid Digestion and Lipid Transport cards; Weggemans RM et al. Am J Clin Nutr 2001;73:885 (LDL-C about 1.9 mg/dL per 100 mg/day),n,Confirm the primary meta-regression before release. Slide 18's per-SD figure (+4 per 150 mg) is steeper. 95% interval is approximate (check against the source); used for coefficient uncertainty.
+egg_chol_mg,average_math,186,,,mg per large egg,Cholesterol in one large egg,USDA FoodData Central (egg; whole; raw; large),n,
+beta_fiber,average_math,-2.2,-2.7,-1.7,mg/dL per g/day,LDL-C change per extra g/day of soluble fiber,Brown L et al. Am J Clin Nutr 1999;69:30 (-0.057 mmol/L per g; 67 trials of 2-10 g/day),n,Full model only 95% interval is approximate (check against the source); used for coefficient uncertainty.
+sterol_pct_per_g,average_math,4.5,3.5,5.5,% of baseline LDL-C per g/day,LDL-C fall per g/day of plant sterols or stanols,Gylling H et al. Atherosclerosis 2014;232:346 (EAS consensus: 2 g/day lowers LDL-C 8-10%); Ras RT et al. Br J Nutr 2014;112:214 (dose-response),n,Full model only. Linear up to the plateau below. 95% interval is approximate (check against the source); used for coefficient uncertainty.
+sterol_cap_g,average_math,3,,,g/day,Plant sterol intake above which the LDL-C effect plateaus,Ras 2014 (dose-response levels off around 3 g/day),n,
+abs_avg,person,0.5,,,fraction,Average fraction of gut cholesterol absorbed (site B default),Bosner MS et al. J Lipid Res 1999;40:302 (mean about 56%; range about 29-80%),n,Measured in people by plasma campesterol + sitosterol per unit of cholesterol (Miettinen 1990)
+abs_min,person,0.2,,,fraction,Lowest absorption on the site B slider,Lipid Transport decoder (20-80%),n,
+abs_max,person,0.8,,,fraction,Highest absorption on the site B slider,Lipid Transport decoder (20-80%),n,
+comp_avg,person,0.7,,,fraction,Fraction of extra absorbed cholesterol that the average person offsets by making less,Illustrative. Feeding studies show most people lower synthesis when they absorb more cholesterol and that people vary widely (e.g. McNamara DJ et al. J Clin Invest 1987;79:1729),n,Illustrative. Together with comp_lath_exponent this sets how much people differ in their response to dietary cholesterol.
+comp_max,person,0.98,,,fraction,Highest compensation the model allows,Model limit,n,
+synth_min,person,0.3,,,x typical,Lowest baseline synthesis (lathosterol) on the site C slider,Model limit,n,
+synth_max,person,2.5,,,x typical,Highest baseline synthesis (lathosterol) on the site C slider,Model limit,n,
+comp_lath_exponent,person,1.75,,,unitless,Sets compensation from baseline lathosterol: 1 - comp = (1 - comp_avg) x (absorption ratio / lathosterol)^exponent,Illustrative. Direction from Miettinen 1990 and Kesaniemi 1987 (high absorbers make less; low absorbers make more).,n,More synthesis to switch off (high lathosterol) and less cholesterol arriving (low absorption) both mean more compensation
+apoe_e2e3,person,0.5,,,multiplier,LDL receptor sensitivity to diet for APOE E2/E3 (site F),Illustrative size; direction from Kesaniemi YA et al. J Clin Invest 1987;80:578 (E2 absorbs less and makes more),n,Multiplies the share of LDL receptor activity lost to the diet
+apoe_e3e3,person,1,,,multiplier,LDL receptor sensitivity to diet for APOE E3/E3 (reference),Reference genotype,n,
+apoe_e3e4,person,1.1,,,multiplier,LDL receptor sensitivity to diet for APOE E3/E4,Illustrative size; direction from Kesaniemi 1987 and Sarkkinen 1998,n,
+apoe_e4e4,person,1.2,,,multiplier,LDL receptor sensitivity to diet for APOE E4/E4,Illustrative size; Sarkkinen E et al. Am J Clin Nutr 1998;68:1215 (+300 mg/day cholesterol raised total cholesterol 10.4% in E4/E4),n,
+ldlr_min,person,0.3,,,fraction of typical,Lowest LDL receptor activity on the site F slider,Model limit,n,
+ldlr_fh,person,0.5,,,fraction of typical,LDL receptor activity used by the FH-like instructor demo,Illustrative (heterozygous FH roughly halves functional LDL receptors),n,
+vldl_flux_max,person,2.5,,,multiplier,Largest VLDL-to-LDL flux on the site D/E slider (lipid energy model switch),Norwitz NG et al. Metabolites 2022;12:460 (the lipid energy model: a proposed and untested hypothesis),n,Off by default. ApoB roughly doubles in the lean-runner pattern this hypothesis describes.
+min_clearance,person,0.2,,,fraction,Lowest LDL receptor activity the model allows after diet effects (caps LDL-C at 5x production),Model limit,n,
+apob_intercept,apob,15,,,mg/dL,ApoB estimate = intercept + slope x LDL-C,Illustrative line through the 2026 card values (e.g. LDL-C 95 -> ApoB 72; 220 -> 150),n,Real ApoB varies with how much cholesterol each particle carries
+apob_slope,apob,0.6,,,mg/dL ApoB per mg/dL LDL-C,ApoB estimate = intercept + slope x LDL-C,Illustrative line through the 2026 card values,n,
+apob_high,apob,130,,,mg/dL,ApoB at or above which risk is raised,Lipid Transport decoder benchmarks,n,
+ezetimibe_pct,fix,20,,,% LDL-C,Average LDL-C fall on ezetimibe; scaled by the person's absorption ratio,Sudhop T et al. Circulation 2002;106:1943 (absorption 50% -> 23%; LDL-C about -20%),n,From the Lipid Digestion key
+statin_pct,fix,35,,,% LDL-C,Average LDL-C fall on a moderate-intensity statin (30-49%),Grundy SM et al. 2018 AHA/ACC cholesterol guideline,n,
+carbs_back_g,fix,100,,,g/day,Carbohydrate added back by the 'Add carbs back' fix (taken from fat),Lipid Transport fix menu,n,Also turns the site D/E switch off
+sterol_spread_g,fix,2,,,g/day,Plant sterols added by the plant sterol spread fix,Lipid Transport fix menu; Gylling 2014,n,
+range_sfa_max,range,20,,,% energy,SFA above this is outside most trials behind the Mensink coefficients,Spec for this app (approximate),n,Fires for every keto card
+range_carb_min,range,30,,,% energy,Carbohydrate below this is outside the diets in which the fat coefficients were measured,Approximate,n,
+range_mufa_max,range,25,,,% energy,MUFA above this is outside most trials,Approximate,n,
+range_pufa_max,range,15,,,% energy,PUFA above this is outside most trials,Approximate,n,
+range_chol_max,range,900,,,mg/day,Dietary cholesterol above this is beyond the top dose group of the egg trials,Berger S et al. Am J Clin Nutr 2015;102:276 (top group >900 mg/day; the rise did not keep climbing with dose),n,
+range_fiber_max,range,10,,,g/day,Soluble fiber above the 2-10 g/day studied,Brown 1999,n,
+range_sterol_max,range,3,,,g/day,Plant sterols above the plateau,Ras 2014,n,
+keto_trial_min,reference,5,,,% LDL-C change,Smallest individual LDL-C rise on 3 weeks of LCHF,Retterstol K et al. Atherosclerosis 2018;279:52 (n = 15; normal-weight young adults; under 20 g carbohydrate/day),n,
+keto_trial_max,reference,107,,,% LDL-C change,Largest individual LDL-C rise on 3 weeks of LCHF,Retterstol 2018,n,
+keto_trial_mean,reference,44,,,% LDL-C change,Average LDL-C rise on 3 weeks of LCHF,Retterstol 2018 (2.2 -> 3.1 mmol/L),n,
+buren_effect,reference,70,,,mg/dL,Average LDL-C treatment effect of 4 weeks of ketogenic LCHF in normal-weight young women; LDL-C rose in every participant,Buren J et al. Nutrients 2021;13:814 (+1.82 mmol/L),n,
+rouhani_hyper,reference,21.8,,,mg/dL,Cholesterol rise in hyper-responders in egg-feeding RCTs,Rouhani MH et al. J Am Coll Nutr 2018;37:99,n,Check whether this is LDL-C or total cholesterol
+rouhani_hypo,reference,-0.5,,,mg/dL,Cholesterol change in hypo-responders in egg-feeding RCTs,Rouhani 2018,n,Check whether this is LDL-C or total cholesterol
+berger_low,reference,13.4,,,mg/dL,LDL-C rise in trials adding under 650 mg/day cholesterol,Berger 2015,n,
+berger_mid,reference,10.7,,,mg/dL,LDL-C rise in trials adding 650-900 mg/day cholesterol,Berger 2015,n,
+berger_high,reference,19.3,,,mg/dL,LDL-C rise in trials adding more than 900 mg/day cholesterol,Berger 2015,n,
+pop_abs_logit_sd,population,0.56,,,logit units,Spread of absorption in the population view (95% of people 25-75%),Illustrative; Bosner 1999 range 29-80%,n,
+pop_synth_sdlog,population,0.35,,,log units,Spread of baseline synthesis (lathosterol) in the population view,Illustrative; Miettinen 1990 shows roughly 2-fold ranges,n,
+pop_ldlr_sdlog,population,0.15,,,log units,Spread of LDL receptor activity in the population view,Illustrative,n,
+pop_freq_e2e3,population,0.13,,,proportion,APOE E2/E3 frequency (E2/E2 and E2/E4 folded in),Approximate European-ancestry frequencies; vary by ancestry,n,
+pop_freq_e3e3,population,0.61,,,proportion,APOE E3/E3 frequency,Approximate European-ancestry frequencies,n,
+pop_freq_e3e4,population,0.24,,,proportion,APOE E3/E4 frequency,Approximate European-ancestry frequencies,n,
+pop_freq_e4e4,population,0.02,,,proportion,APOE E4/E4 frequency,Approximate European-ancestry frequencies,n,

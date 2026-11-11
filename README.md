@@ -50,6 +50,28 @@ the [app README](ReverseCausationSimulation/README.md).
 shiny::runApp("ReverseCausationSimulation")
 ```
 
+### [LDLDietResponse](LDLDietResponse/): LDL-C diet response, and why people differ
+
+For the NUTR630 lipid unit. Enter a theoretical diet change (or start from
+an example diet) and see the predicted LDL-C change and how much it varies.
+The **average person** (yellow) uses regression math: Mensink 2016 fat swaps,
+dietary cholesterol, fiber and plant sterols. **This person** runs the same
+diet through one knob per decoder site: B absorption, C synthesis, D/E VLDL
+flux (the untested lipid energy model, off by default) and F APOE/LDL
+receptor. A spread panel shows the range of outcomes across 2,000 simulated
+people. It breaks the variance down by source: coefficient uncertainty versus
+differences between people, and each knob on its own. The app also has a
+predict-first mode and a Fix it tab. See the
+[app README](LDLDietResponse/README.md).
+
+> **Not for clinical use.** This is an illustrative teaching model built from
+> linear regression coefficients. It should not be used to predict any real
+> person's lipid response.
+
+```r
+shiny::runApp("LDLDietResponse")
+```
+
 ## Live site
 
 Every push to `main` runs the tests, builds each app with
